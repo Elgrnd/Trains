@@ -204,10 +204,12 @@ public class VuePlateau extends Pane {
     }
 
     private void ajouteRailATuile(Tuile t, Joueur j, Circle c) {
-        System.out.println("Un rail a été posé par le joueur " + j.getNom());
+        c.setStyle("-fx-fill: " + CouleursJoueurs.couleursBackgroundJoueur.get(j.getCouleur()));
     }
 
     private void choixTuile(MouseEvent event) {
-        System.out.println("Une tuile a été choisie");
+        Group eventSource = (Group) event.getSource();
+        GestionJeu.getJeu().uneTuileAEteChoisie(eventSource.getId());
+        System.out.println("La tuile " + eventSource.getId() + " a été choisie ");
     }
 }
