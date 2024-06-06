@@ -4,11 +4,17 @@ import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,74 +27,63 @@ import java.util.Map;
  * (le joueur courant, ses cartes en main, son score, ...)
  * ainsi que les listeners à exécuter lorsque ces éléments changent
  */
-public class VueDuJeu extends VBox {
-    private Label instruction;
+public class VueDuJeu extends BorderPane {
     private final IJeu jeu;
     private VuePlateau plateau;
-    private Label nomJoueur;
+
+    private VueJoueurCourant joueurCourant;
+
+    private VueAutresJoueurs autresJoueurs;
+
+    @FXML
+    private VBox vboxJoueurCourant, vboxReserve, vboxCartes;
+    @FXML
+    private HBox hboxAutresJoueurs, hboxCartesJouees, hboxCartesRecues;
+    @FXML
+    private Pane panePlateau;
+    @FXML
+    private Button boutonReserve;
+    @FXML
     private Button passer;
-    private HBox mainJoueur;
-    private Map<Carte, Button> carteButtonMap;
 
     public VueDuJeu(IJeu jeu) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/jeu.fxml"));
+            loader.setRoot(this);
+            loader.setController(this);
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.jeu = jeu;
         plateau = new VuePlateau();
-        nomJoueur = new Label();
-        instruction = new Label();
-        passer = new Button("Passer");
-        mainJoueur = new HBox();
-        carteButtonMap = new HashMap<>();
-        getChildren().addAll(plateau, instruction, nomJoueur, passer, mainJoueur);
-        instruction.setStyle("-fx-font-size: 30");
-        nomJoueur.setStyle("-fx-font-size: 25");
+        joueurCourant = new VueJoueurCourant(jeu);
+        autresJoueurs = new VueAutresJoueurs();
+        /*
+        boutonReserve = new Button("Reserve");
+        vboxJoueurCourant = new VBox();
+        vboxReserve = new VBox();
+        vboxCartes = new VBox();
+        hboxAutresJoueurs = new HBox();
+        panePlateau = new Pane();
+
+        hboxCartesJouees = new HBox();
+        hboxCartesRecues = new HBox();
+         */
+        vboxJoueurCourant.getChildren().add(joueurCourant);
+        hboxAutresJoueurs.getChildren().add(autresJoueurs);
+        panePlateau.getChildren().add(plateau);
+        vboxCartes.getChildren().add(passer);
         passer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> getJeu().passerAEteChoisi());
         passer.setOnMousePressed(actionPasserParDefaut);
-        jeu.joueurCourantProperty().addListener(((observableValue, ancienJoueur, nouveauJoueur) -> {
-            mainJoueur.getChildren().clear();
-            carteButtonMap.clear();
-            for (Carte carte : nouveauJoueur.mainProperty()) {
-                Button carteButton = new Button(carte.getNom());
-                carteButtonMap.put(carte, carteButton);
-                mainJoueur.getChildren().add(carteButton);
-                carteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-                    nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getText());
-                });
-            }
-            nomJoueur.setText(nouveauJoueur.getNom());
-            nouveauJoueur.mainProperty().addListener((ListChangeListener<Carte>) change -> {
-                while (change.next()) {
-                    if (change.wasRemoved()) {
-                        for (Carte carteEnlevee : change.getRemoved()) {
-                            Button boutonARetirer = trouverBoutonCarte(carteEnlevee);
-                            if (boutonARetirer != null) {
-                                mainJoueur.getChildren().remove(boutonARetirer);
-                                carteButtonMap.remove(carteEnlevee);
-                            }
-                        }
-                    }
-                    if (change.wasAdded()) {
-                        for (Carte carteAjoutee : change.getAddedSubList()) {
-                            Button carteButton = new Button(carteAjoutee.getNom());
-                            carteButtonMap.put(carteAjoutee, carteButton);
-                            mainJoueur.getChildren().add(carteButton);
-                            carteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-                                nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getText());
-                            });
-                        }
-                    }
-                }
-            });
-        }));
-    }
-    public Button trouverBoutonCarte(Carte carteATrouver) {
-        return carteButtonMap.get(carteATrouver);
+
     }
 
     public void creerBindings() {
         plateau.prefWidthProperty().bind(getScene().widthProperty());
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
-        instruction.textProperty().bind(getJeu().instructionProperty());
+        joueurCourant.creerBindings();
     }
 
     public IJeu getJeu() {

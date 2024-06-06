@@ -8,38 +8,37 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <VBox prefHeight="112.0" prefWidth="600.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
+      <VBox fx:id="vboxJoueurCourant" prefHeight="112.0" prefWidth="600.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
    </bottom>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxCartes" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hboxCartesJouees" prefHeight="100.0" prefWidth="200.0" />
             <Separator prefWidth="200.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hboxCartesRecues" prefHeight="100.0" prefWidth="200.0" />
             <Separator prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox fx:id="hboxPasser" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Passer" />
+                  <Button fx:id="passer" mnemonicParsing="false" text="Passer" />
                </children>
             </HBox>
          </children>
       </VBox>
    </right>
    <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
+      <HBox fx:id="hboxAutresJoueurs" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <Pane prefHeight="143.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="panePlateau" prefHeight="143.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
    </center>
    <left>
-      <VBox alignment="CENTER" prefHeight="188.0" prefWidth="79.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxReserve" alignment="CENTER" prefHeight="188.0" prefWidth="79.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="52.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Réserve" />
+            <Button fx:id="boutonReserve" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Réserve" />
          </children>
       </VBox>
    </left>
-</BorderPane>
+</fx:root>
