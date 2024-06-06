@@ -59,17 +59,6 @@ public class VueDuJeu extends BorderPane {
         plateau = new VuePlateau();
         joueurCourant = new VueJoueurCourant(jeu);
         autresJoueurs = new VueAutresJoueurs();
-        /*
-        boutonReserve = new Button("Reserve");
-        vboxJoueurCourant = new VBox();
-        vboxReserve = new VBox();
-        vboxCartes = new VBox();
-        hboxAutresJoueurs = new HBox();
-        panePlateau = new Pane();
-
-        hboxCartesJouees = new HBox();
-        hboxCartesRecues = new HBox();
-         */
         vboxJoueurCourant.getChildren().add(joueurCourant);
         hboxAutresJoueurs.getChildren().add(autresJoueurs);
         panePlateau.getChildren().add(plateau);
