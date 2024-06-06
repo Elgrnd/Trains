@@ -38,7 +38,7 @@ public class VueDuJeu extends BorderPane {
     @FXML
     private VBox vboxJoueurCourant, vboxReserve, vboxCartes;
     @FXML
-    private HBox hboxAutresJoueurs, hboxCartesJouees, hboxCartesRecues;
+    private HBox hboxAutresJoueurs, hboxCartesJouees, hboxCartesRecues, hboxPasser;
     @FXML
     private Pane panePlateau;
     @FXML
@@ -59,13 +59,9 @@ public class VueDuJeu extends BorderPane {
         plateau = new VuePlateau();
         joueurCourant = new VueJoueurCourant(jeu);
         autresJoueurs = new VueAutresJoueurs();
+        panePlateau.getChildren().add(plateau);
         vboxJoueurCourant.getChildren().add(joueurCourant);
         hboxAutresJoueurs.getChildren().add(autresJoueurs);
-        panePlateau.getChildren().add(plateau);
-        vboxCartes.getChildren().add(passer);
-        passer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> getJeu().passerAEteChoisi());
-        passer.setOnMousePressed(actionPasserParDefaut);
-
     }
 
     public void creerBindings() {
@@ -73,6 +69,8 @@ public class VueDuJeu extends BorderPane {
         plateau.prefHeightProperty().bind(getScene().heightProperty());
         plateau.creerBindings();
         joueurCourant.creerBindings();
+        passer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> getJeu().passerAEteChoisi());
+        passer.setOnMousePressed(actionPasserParDefaut);
     }
 
     public IJeu getJeu() {

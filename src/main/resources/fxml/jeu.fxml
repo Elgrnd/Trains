@@ -13,17 +13,13 @@
       <VBox fx:id="vboxJoueurCourant" prefHeight="112.0" prefWidth="600.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
    </bottom>
    <right>
-      <VBox fx:id="vboxCartes" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxCartes" alignment="CENTER" focusTraversable="true" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
             <HBox fx:id="hboxCartesJouees" prefHeight="100.0" prefWidth="200.0" />
-            <Separator prefWidth="200.0" />
+            <Separator focusTraversable="false" prefWidth="200.0" />
             <HBox fx:id="hboxCartesRecues" prefHeight="100.0" prefWidth="200.0" />
-            <Separator prefWidth="200.0" />
-            <HBox fx:id="hboxPasser" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="passer" mnemonicParsing="false" text="Passer" />
-               </children>
-            </HBox>
+            <Separator focusTraversable="false" prefWidth="200.0" />
+            <Button fx:id="passer" mnemonicParsing="false" text="Passer" />
          </children>
       </VBox>
    </right>
