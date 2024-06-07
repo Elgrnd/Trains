@@ -23,7 +23,7 @@ public class VueJoueurCourant extends VBox {
     private Label nomJoueur;
     private Label instruction;
     private HBox mainJoueur;
-    private Map<Carte, Button> carteButtonMap;
+    private Map<Carte, VueCarte> carteButtonMap;
 
     private IJeu jeu;
 
@@ -43,11 +43,11 @@ public class VueJoueurCourant extends VBox {
             mainJoueur.getChildren().clear();
             carteButtonMap.clear();
             for (Carte carte : nouveauJoueur.mainProperty()) {
-                Button carteButton = new Button(carte.getNom());
+                VueCarte carteButton = new VueCarte(carte);
                 carteButtonMap.put(carte, carteButton);
                 mainJoueur.getChildren().add(carteButton);
                 carteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-                    nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getText());
+                    nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getNom());
                 });
             }
             nomJoueur.setText(nouveauJoueur.getNom());
@@ -64,11 +64,11 @@ public class VueJoueurCourant extends VBox {
                     }
                     if (change.wasAdded()) {
                         for (Carte carteAjoutee : change.getAddedSubList()) {
-                            Button carteButton = new Button(carteAjoutee.getNom());
+                            VueCarte carteButton = new VueCarte(carteAjoutee);
                             carteButtonMap.put(carteAjoutee, carteButton);
                             mainJoueur.getChildren().add(carteButton);
                             carteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-                                nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getText());
+                                nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getNom());
                             });
                         }
                     }
