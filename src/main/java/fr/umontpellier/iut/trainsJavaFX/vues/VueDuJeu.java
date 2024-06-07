@@ -40,7 +40,7 @@ public class VueDuJeu extends BorderPane {
     @FXML
     private HBox hboxAutresJoueurs, hboxCartesJouees, hboxCartesRecues, hboxPasser;
     @FXML
-    private Pane panePlateau;
+    private VBox panePlateau;
     @FXML
     private Button boutonReserve;
     @FXML

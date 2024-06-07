@@ -27,7 +27,7 @@
       <HBox fx:id="hboxAutresJoueurs" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <Pane fx:id="panePlateau" prefHeight="143.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+      <VBox fx:id="panePlateau" prefHeight="143.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
    </center>
    <left>
       <VBox fx:id="vboxReserve" alignment="CENTER" prefHeight="188.0" prefWidth="79.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
