@@ -14,7 +14,9 @@ public class VueAutreJoueur extends HBox {
         getChildren().add(new Label("Score : " + autreJoueur.getScoreTotal()));
         getChildren().add(new Label("Cartes en main : " + autreJoueur.mainProperty().size()));
         getChildren().add(new Label("Cartes jouées : " + autreJoueur.cartesEnJeuProperty().size()));
-        setStyle("-fx-background-color: " + CouleursJoueurs.couleursBackgroundJoueur.get(autreJoueur.getCouleur()));
+        setStyle("-fx-background-color: " + CouleursJoueurs.couleursBackgroundJoueur.get(autreJoueur.getCouleur()) + "; -fx-font-size: 15; -fx-padding: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-border-width: 2");
+        setAlignment(javafx.geometry.Pos.CENTER);
+        setSpacing(10);
     }
 
     public void createBindings() {

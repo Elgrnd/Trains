@@ -25,6 +25,8 @@ public class VueAutresJoueurs extends HBox {
                 getChildren().add(vueAutreJoueur);
             }
         }
+        setSpacing(10);
+        setMargin(this, new javafx.geometry.Insets(10));
     }
 
     public void createBindings() {
