@@ -54,8 +54,10 @@ public class VueJoueurCourant extends VBox {
                     nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getNom());
                 });
             }
+
             nomJoueur.setText(nouveauJoueur.getNom());
             Labels.setStyle("-fx-background-color: " + CouleursJoueurs.couleursBackgroundJoueur.get(nouveauJoueur.getCouleur()) + "; -fx-font-size: 25");
+
             nouveauJoueur.mainProperty().addListener((ListChangeListener<Carte>) change -> {
                 while (change.next()) {
                     if (change.wasRemoved()) {
@@ -79,6 +81,7 @@ public class VueJoueurCourant extends VBox {
                     }
                 }
             });
+
         }));
         instruction.textProperty().bind(GestionJeu.getJeu().instructionProperty());
 

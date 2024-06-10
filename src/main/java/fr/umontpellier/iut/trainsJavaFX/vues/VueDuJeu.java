@@ -12,10 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,14 +33,16 @@ public class VueDuJeu extends BorderPane {
 
     private VueJoueurCourant joueurCourant;
 
-    private VueAutresJoueurs autresJoueurs;
+    private VueAutresJoueurs autresJoueursInfo;
 
     @FXML
     private VBox vboxJoueurCourant, vboxReserve, vboxCartes;
     @FXML
-    private HBox hboxAutresJoueurs, hboxCartesJouees, hboxCartesRecues, hboxPasser;
+    private HBox hboxCartesJouees, hboxCartesRecues, hboxPasser;
     @FXML
     private VBox panePlateau;
+    @FXML
+    private HBox hboxAutresJoueurs;
     @FXML
     private Button boutonReserve;
     @FXML
@@ -61,10 +60,10 @@ public class VueDuJeu extends BorderPane {
         this.jeu = jeu;
         plateau = new VuePlateau();
         joueurCourant = new VueJoueurCourant(jeu);
-        autresJoueurs = new VueAutresJoueurs(jeu);
+        autresJoueursInfo = new VueAutresJoueurs(jeu);
         panePlateau.getChildren().add(plateau);
         vboxJoueurCourant.getChildren().add(joueurCourant);
-        hboxAutresJoueurs.getChildren().add(autresJoueurs);
+        hboxAutresJoueurs.getChildren().add(autresJoueursInfo);
         Image image = new Image("images/boutons/passer.png");
         ImageView imagePasser = new ImageView(image);
         imagePasser.setFitWidth(75);
@@ -81,6 +80,7 @@ public class VueDuJeu extends BorderPane {
         passer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> getJeu().passerAEteChoisi());
         passer.setOnMousePressed(actionPasserParDefaut);
         boutonReserve.setOnAction(new OuvrirNouvFenetreHandler());
+        autresJoueursInfo.createBindings();
     }
 
     public IJeu getJeu() {
