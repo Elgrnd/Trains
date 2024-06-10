@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -59,10 +61,15 @@ public class VueDuJeu extends BorderPane {
         this.jeu = jeu;
         plateau = new VuePlateau();
         joueurCourant = new VueJoueurCourant(jeu);
-        autresJoueurs = new VueAutresJoueurs();
+        autresJoueurs = new VueAutresJoueurs(jeu);
         panePlateau.getChildren().add(plateau);
         vboxJoueurCourant.getChildren().add(joueurCourant);
         hboxAutresJoueurs.getChildren().add(autresJoueurs);
+        Image image = new Image("images/boutons/passer.png");
+        ImageView imagePasser = new ImageView(image);
+        imagePasser.setFitWidth(75);
+        imagePasser.setFitHeight(75);
+        passer.setGraphic(imagePasser);
     }
 
     public void creerBindings() {

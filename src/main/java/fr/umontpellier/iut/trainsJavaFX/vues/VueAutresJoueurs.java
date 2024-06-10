@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
+import fr.umontpellier.iut.trainsJavaFX.IJeu;
+import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import javafx.scene.layout.Pane;
 
 /**
@@ -10,4 +12,13 @@ import javafx.scene.layout.Pane;
  */
 public class VueAutresJoueurs extends Pane {
 
+    private IJeu jeu;
+
+    public VueAutresJoueurs(IJeu jeu) {
+        this.jeu = jeu;
+    }
+
+    public void createBindings() {
+
+    }
 }
