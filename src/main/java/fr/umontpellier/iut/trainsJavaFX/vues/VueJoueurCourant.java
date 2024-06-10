@@ -2,14 +2,16 @@ package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
+import fr.umontpellier.iut.trainsJavaFX.mecanique.Joueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +53,7 @@ public class VueJoueurCourant extends VBox {
                 });
             }
             nomJoueur.setText(nouveauJoueur.getNom());
+            setStyle("-fx-background-color: " + CouleursJoueurs.couleursBackgroundJoueur.get(nouveauJoueur.getCouleur()));
             nouveauJoueur.mainProperty().addListener((ListChangeListener<Carte>) change -> {
                 while (change.next()) {
                     if (change.wasRemoved()) {
@@ -76,6 +79,7 @@ public class VueJoueurCourant extends VBox {
             });
         }));
         instruction.textProperty().bind(GestionJeu.getJeu().instructionProperty());
+
     }
 
     public Button trouverBoutonCarte(Carte carteATrouver) {

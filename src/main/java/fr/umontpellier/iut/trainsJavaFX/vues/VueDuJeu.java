@@ -70,6 +70,7 @@ public class VueDuJeu extends BorderPane {
         imagePasser.setFitWidth(75);
         imagePasser.setFitHeight(75);
         passer.setGraphic(imagePasser);
+        passer.setStyle("-fx-background-color: transparent");
     }
 
     public void creerBindings() {
