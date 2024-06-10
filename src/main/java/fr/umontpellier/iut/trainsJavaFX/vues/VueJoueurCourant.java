@@ -34,10 +34,13 @@ public class VueJoueurCourant extends VBox {
         nomJoueur = new Label();
         instruction = new Label();
         mainJoueur = new HBox();
+        HBox Labels = new HBox();
+        Label tiret = new Label(" - ");
+        Labels.getChildren().addAll(nomJoueur, tiret, instruction);
+        Labels.setAlignment(javafx.geometry.Pos.CENTER);
         carteButtonMap = new HashMap<>();
-        getChildren().addAll(nomJoueur, instruction, mainJoueur);
-        instruction.setStyle("-fx-font-size: 30");
-        nomJoueur.setStyle("-fx-font-size: 25");
+        getChildren().addAll(Labels, mainJoueur);
+        Labels.setStyle("-fx-font-size: 25");
     }
 
     public void creerBindings() {
