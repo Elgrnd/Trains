@@ -3,6 +3,7 @@ package fr.umontpellier.iut.trainsJavaFX.vues;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,6 +72,7 @@ public class VueDuJeu extends BorderPane {
         joueurCourant.creerBindings();
         passer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> getJeu().passerAEteChoisi());
         passer.setOnMousePressed(actionPasserParDefaut);
+        boutonReserve.setOnAction(new OuvrirNouvFenetreHandler());
     }
 
     public IJeu getJeu() {
