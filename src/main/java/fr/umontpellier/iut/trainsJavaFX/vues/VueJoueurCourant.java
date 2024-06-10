@@ -24,7 +24,7 @@ import java.util.Map;
 public class VueJoueurCourant extends VBox {
     private Label nomJoueur;
     private Label instruction;
-    private HBox mainJoueur;
+    private HBox mainJoueur, Labels;
     private Map<Carte, VueCarte> carteButtonMap;
 
     private IJeu jeu;
@@ -34,13 +34,12 @@ public class VueJoueurCourant extends VBox {
         nomJoueur = new Label();
         instruction = new Label();
         mainJoueur = new HBox();
-        HBox Labels = new HBox();
+        Labels = new HBox();
         Label tiret = new Label(" - ");
         Labels.getChildren().addAll(nomJoueur, tiret, instruction);
         Labels.setAlignment(javafx.geometry.Pos.CENTER);
         carteButtonMap = new HashMap<>();
         getChildren().addAll(Labels, mainJoueur);
-        Labels.setStyle("-fx-font-size: 25");
     }
 
     public void creerBindings() {
@@ -56,7 +55,7 @@ public class VueJoueurCourant extends VBox {
                 });
             }
             nomJoueur.setText(nouveauJoueur.getNom());
-            setStyle("-fx-background-color: " + CouleursJoueurs.couleursBackgroundJoueur.get(nouveauJoueur.getCouleur()));
+            Labels.setStyle("-fx-background-color: " + CouleursJoueurs.couleursBackgroundJoueur.get(nouveauJoueur.getCouleur()) + "; -fx-font-size: 25");
             nouveauJoueur.mainProperty().addListener((ListChangeListener<Carte>) change -> {
                 while (change.next()) {
                     if (change.wasRemoved()) {
