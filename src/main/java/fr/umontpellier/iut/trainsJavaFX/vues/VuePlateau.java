@@ -206,7 +206,11 @@ public class VuePlateau extends Pane {
     }
 
     private void ajouteRailATuile(Tuile t, Joueur j, Circle c) {
-        c.setStyle("-fx-fill: " + CouleursJoueurs.couleursBackgroundJoueur.get(j.getCouleur()));
+        Image image = new Image("images/icons/rail_" + j.getCouleur() + ".png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(DonneesGraphiques.rayonPion * 5);
+        imageView.setFitHeight(DonneesGraphiques.rayonPion * 5);
+        c.setFill(new ImagePattern(image));
     }
 
     private void choixTuile(MouseEvent event) {

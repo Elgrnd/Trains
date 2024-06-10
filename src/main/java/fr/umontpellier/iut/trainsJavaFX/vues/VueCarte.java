@@ -23,8 +23,9 @@ public class VueCarte extends Button {
         this.carte = carte;
         Image image = new Image("images/cartes/" + nomCarteToNomImage() + ".jpg");
         ImageView imageCarte = new ImageView(image);
-        imageCarte.setFitWidth(100);
-        imageCarte.setFitHeight(150);
+        int largeur = 120;
+        imageCarte.setFitWidth(largeur);
+        imageCarte.setFitHeight(largeur*1.4);
         setGraphic(imageCarte);
         setStyle("-fx-background-color: transparent");
     }

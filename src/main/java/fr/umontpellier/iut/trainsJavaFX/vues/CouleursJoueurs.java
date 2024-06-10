@@ -7,7 +7,7 @@ import java.util.Map;
 public class CouleursJoueurs {
     public static Map<CouleurJoueur, String> couleursBackgroundJoueur = Map.of(
             CouleurJoueur.JAUNE, "#FED440",
-            CouleurJoueur.ROUGE, "#795593",
+            CouleurJoueur.ROUGE, "#F01021",
             CouleurJoueur.BLEU, "#4093B6",
             CouleurJoueur.VERT, "#2CCDB4"
     );
