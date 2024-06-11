@@ -37,7 +37,6 @@ public class VueCarte extends Button {
     public String nomCarteToNomImage() {
         String nom = carte.getNom();
         switch (nom) {
-            case "Parc d'attractions" -> nom = nom.replaceAll("Parc d'attractions", "parc_d'attractions");
             case "Échangeur" -> nom = nom.replaceAll("Échangeur", "echangeur");
             case "Coopération" -> nom = nom.replaceAll("Coopération", "cooperation");
             case "Décharge" -> nom = nom.replaceAll("Décharge", "decharge");
