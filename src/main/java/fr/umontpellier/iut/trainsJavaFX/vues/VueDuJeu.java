@@ -7,12 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -79,7 +81,16 @@ public class VueDuJeu extends BorderPane {
         joueurCourant.creerBindings();
         passer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> getJeu().passerAEteChoisi());
         passer.setOnMousePressed(actionPasserParDefaut);
-        boutonReserve.setOnAction(new OuvrirNouvFenetreHandler());
+        boutonReserve.setOnAction((ouvrirNouvFenetreHandler) -> {
+            Stage nouvFenetre = new Stage();
+            nouvFenetre.setTitle("Réserve");
+            BorderPane layoutReserve = new BorderPane();
+            Scene sceneReserve = new Scene(layoutReserve, 800, 500);
+            nouvFenetre.setScene(sceneReserve);
+            nouvFenetre.setX(550);
+            nouvFenetre.setY(200);
+            nouvFenetre.show();
+        });
         autresJoueursInfo.createBindings();
     }
 
