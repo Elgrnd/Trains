@@ -7,8 +7,10 @@ import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
@@ -25,6 +27,7 @@ public class VueJoueurCourant extends VBox {
     private Label nomJoueur;
     private Label instruction;
     private HBox mainJoueur, Labels;
+    private VBox infoJoueur;
     private Map<Carte, VueCarte> carteButtonMap;
 
     private IJeu jeu;
@@ -33,13 +36,16 @@ public class VueJoueurCourant extends VBox {
         this.jeu = jeu;
         nomJoueur = new Label();
         instruction = new Label();
+        HBox mainEtInfo = new HBox();
         mainJoueur = new HBox();
+        infoJoueur = new VBox();
+        mainEtInfo.getChildren().addAll(mainJoueur,new Separator(Orientation.VERTICAL), infoJoueur);
         Labels = new HBox();
         Label tiret = new Label(" - ");
         Labels.getChildren().addAll(nomJoueur, tiret, instruction);
         Labels.setAlignment(javafx.geometry.Pos.CENTER);
         carteButtonMap = new HashMap<>();
-        getChildren().addAll(Labels, mainJoueur);
+        getChildren().addAll(Labels, mainEtInfo);
     }
 
     public void creerBindings() {

@@ -37,12 +37,16 @@ public class VueCarte extends Button {
     public String nomCarteToNomImage() {
         String nom = carte.getNom();
         switch (nom) {
-            case "GratteCiel" -> nom = nom.replaceAll("GratteCiel", "gratte-ciel");
             case "TGV" -> nom = nom.replaceAll("TGV", "tgv");
-            case "ParcDAttractions" -> nom = nom.replaceAll("ParcDAttractions", "parc_d'attractions");
+            case "Parc d'attractions" -> nom = nom.replaceAll("Parc d'attractions", "parc_d'attractions");
+            case "Échangeur" -> nom = nom.replaceAll("Échangeur", "echangeur");
+            case "Coopération" -> nom = nom.replaceAll("Coopération", "cooperation");
+            case "Décharge" -> nom = nom.replaceAll("Décharge", "decharge");
+            case "Dépôt" -> nom = nom.replaceAll("Dépôt", "depot");
+            case "Dépotoir" -> nom = nom.replaceAll("Dépotoir", "depotoir");
+            case "Centre de contrôle" -> nom = nom.replaceAll("Centre de contrôle", "centre_de_controle");
             default -> {
-                nom = nom.replaceAll("[^a-zA-Z0-9_]|'", "_"); // replace special characters and 'ith _
-                nom = nom.toLowerCase(); // convert to lowercase
+                nom = nom.toLowerCase().replace(" ", "_");
             }
         }
         return nom + ".jpg";
