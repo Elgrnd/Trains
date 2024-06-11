@@ -2,11 +2,13 @@ package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
+import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.ListeDeCartes;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,8 +19,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -86,14 +87,27 @@ public class VueDuJeu extends BorderPane {
             nouvFenetre.setTitle("Réserve");
             BorderPane layoutReserve = new BorderPane();
             Scene sceneReserve = new Scene(layoutReserve, 800, 500);
+            GridPane gridPaneCartesReserves = new GridPane();
+            gridPaneCartesReserves.setVgap(3);
+            gridPaneCartesReserves.setHgap(7);
             nouvFenetre.setScene(sceneReserve);
+            layoutReserve.setCenter(gridPaneCartesReserves);
+
+            List<Carte> cartesReserve = jeu.getReserve();
+            for (Carte carte : cartesReserve) {
+                VueCarte vueCarte = new VueCarte(carte);
+                vueCarte.setCarteChoisieListener(event -> {
+                    System.out.println("Carte choisie : " + carte.getNom());
+                });
+                gridPaneCartesReserves.add(vueCarte, gridPaneCartesReserves.getChildren().size() % 5, gridPaneCartesReserves.getChildren().size() / 5);
+            }
+
             nouvFenetre.setX(550);
             nouvFenetre.setY(200);
             nouvFenetre.show();
         });
         autresJoueursInfo.createBindings();
     }
-
     public IJeu getJeu() {
         return jeu;
     }
