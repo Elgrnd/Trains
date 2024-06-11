@@ -21,7 +21,7 @@ public class VueCarte extends Button {
 
     public VueCarte(ICarte carte) {
         this.carte = carte;
-        Image image = new Image("images/cartes/" + nomCarteToNomImage() + ".jpg");
+        Image image = new Image("images/cartes/" + nomCarteToNomImage());
         ImageView imageCarte = new ImageView(image);
         int largeur = 120;
         imageCarte.setFitWidth(largeur);
@@ -35,7 +35,17 @@ public class VueCarte extends Button {
     }
 
     public String nomCarteToNomImage() {
-        return carte.getNom().toLowerCase().replace(" ", "_");
+        String nom = carte.getNom();
+        switch (nom) {
+            case "GratteCiel" -> nom = nom.replaceAll("GratteCiel", "gratte-ciel");
+            case "TGV" -> nom = nom.replaceAll("TGV", "tgv");
+            case "ParcDAttractions" -> nom = nom.replaceAll("ParcDAttractions", "parc_d'attractions");
+            default -> {
+                nom = nom.replaceAll("[^a-zA-Z0-9_]|'", "_"); // replace special characters and 'ith _
+                nom = nom.toLowerCase(); // convert to lowercase
+            }
+        }
+        return nom + ".jpg";
     }
 
     public void setCarteChoisieListener(EventHandler<MouseEvent> quandCarteEstChoisie) {
