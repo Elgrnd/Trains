@@ -99,15 +99,14 @@ public class VueJoueurCourant extends VBox {
                     }
                 }
             });
-
+            nbCartesLabel.textProperty().bind(Bindings.size(nouveauJoueur.mainProperty()).asString());
+            nbCartesEnJeuLabel.textProperty().bind(Bindings.size(nouveauJoueur.cartesEnJeuProperty()).asString());
+            nbJetonsRails.textProperty().bind(nouveauJoueur.nbJetonsRailsProperty().asString());
+            scoreLabel.textProperty().bind(nouveauJoueur.scoreProperty().asString());
+            nbPieces.textProperty().bind(nouveauJoueur.argentProperty().asString());
+            nbRails.textProperty().bind(nouveauJoueur.pointsRailsProperty().asString());
         }));
         instruction.textProperty().bind(GestionJeu.getJeu().instructionProperty());
-        nbCartesLabel.textProperty().bind(Bindings.size(jeu.joueurCourantProperty().get().mainProperty()).asString());
-        nbCartesEnJeuLabel.textProperty().bind(Bindings.size(jeu.joueurCourantProperty().get().cartesEnJeuProperty()).asString());
-        nbJetonsRails.textProperty().bind(jeu.joueurCourantProperty().get().nbJetonsRailsProperty().asString());
-        scoreLabel.textProperty().bind(jeu.joueurCourantProperty().get().scoreProperty().asString());
-        nbPieces.textProperty().bind(jeu.joueurCourantProperty().get().argentProperty().asString());
-        nbRails.textProperty().bind(jeu.joueurCourantProperty().get().pointsRailsProperty().asString());
     }
 
     public void creerInfosJoueurCourant() {
