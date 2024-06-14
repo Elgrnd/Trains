@@ -27,11 +27,11 @@ import java.util.Map;
  * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
  */
 public class VueJoueurCourant extends VBox {
-    private Label nomJoueur;
-    private Label instruction;
+    private Label nomJoueur, instruction, nbPieces, nbRails, scoreLabel, nbCartesLabel, nbCartesEnJeuLabel, nbJetonsRails;
     private HBox mainJoueur, Labels;
     private HBox infoJoueur;
     private Map<Carte, VueCarte> carteButtonMap;
+
 
     private IJeu jeu;
 
@@ -39,19 +39,25 @@ public class VueJoueurCourant extends VBox {
         this.jeu = jeu;
         nomJoueur = new Label();
         instruction = new Label();
+        nbPieces = new Label();
+        nbRails = new Label();
+        scoreLabel = new Label();
+        nbCartesLabel = new Label();
+        nbCartesEnJeuLabel = new Label();
+        nbJetonsRails = new Label();
         HBox mainEtInfo = new HBox();
         mainJoueur = new HBox();
         infoJoueur = new HBox();
         infoJoueur.setSpacing(30);
         mainEtInfo.getChildren().addAll(mainJoueur,new Separator(Orientation.VERTICAL), infoJoueur);
         mainEtInfo.setSpacing(10);
-        creerInfosJoueurCourant();
         Labels = new HBox();
         Label tiret = new Label(" - ");
         Labels.getChildren().addAll(nomJoueur, tiret, instruction);
         Labels.setAlignment(javafx.geometry.Pos.CENTER);
         carteButtonMap = new HashMap<>();
         getChildren().addAll(Labels, mainEtInfo);
+        creerInfosJoueurCourant();
     }
 
     public void creerBindings() {
@@ -96,7 +102,12 @@ public class VueJoueurCourant extends VBox {
 
         }));
         instruction.textProperty().bind(GestionJeu.getJeu().instructionProperty());
-
+        nbCartesLabel.textProperty().bind(Bindings.size(jeu.joueurCourantProperty().get().mainProperty()).asString());
+        nbCartesEnJeuLabel.textProperty().bind(Bindings.size(jeu.joueurCourantProperty().get().cartesEnJeuProperty()).asString());
+        nbJetonsRails.textProperty().bind(jeu.joueurCourantProperty().get().nbJetonsRailsProperty().asString());
+        scoreLabel.textProperty().bind(jeu.joueurCourantProperty().get().scoreProperty().asString());
+        nbPieces.textProperty().bind(jeu.joueurCourantProperty().get().argentProperty().asString());
+        nbRails.textProperty().bind(jeu.joueurCourantProperty().get().pointsRailsProperty().asString());
     }
 
     public void creerInfosJoueurCourant() {
@@ -113,7 +124,6 @@ public class VueJoueurCourant extends VBox {
         ImageView imagePieceView = new ImageView(imagePiece);
         imagePieceView.setFitWidth(50);
         imagePieceView.setFitHeight(50);
-        Label nbPieces = new Label(String.valueOf(jeu.joueurCourantProperty().get().argentProperty().get()));
         nbPieces.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #000000");
         pieces.getChildren().addAll(imagePieceView, nbPieces);
         infosEnJeu.getChildren().add(pieces);
@@ -123,7 +133,6 @@ public class VueJoueurCourant extends VBox {
         ImageView imageRailView = new ImageView(imageRail);
         imageRailView.setFitWidth(50);
         imageRailView.setFitHeight(50);
-        Label nbRails = new Label(String.valueOf(jeu.joueurCourantProperty().get().pointsRailsProperty().get()));
         nbRails.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         rails.getChildren().addAll(imageRailView, nbRails);
         infosEnJeu.getChildren().add(rails);
@@ -137,7 +146,6 @@ public class VueJoueurCourant extends VBox {
         ImageView imageScoreView = new ImageView(imageScore);
         imageScoreView.setFitWidth(50);
         imageScoreView.setFitHeight(50);
-        Label scoreLabel = new Label(String.valueOf(jeu.joueurCourantProperty().get().scoreProperty().get()));
         scoreLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         score.getChildren().addAll(imageScoreView, scoreLabel);
         autresInfos.getChildren().add(score);
@@ -147,7 +155,6 @@ public class VueJoueurCourant extends VBox {
         ImageView imageCarteView = new ImageView(imageCarte);
         imageCarteView.setFitWidth(50);
         imageCarteView.setFitHeight(50);
-        Label nbCartesLabel = new Label(String.valueOf(jeu.joueurCourantProperty().get().mainProperty().size()));
         nbCartesLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         nbCartes.getChildren().addAll(imageCarteView, nbCartesLabel);
         autresInfos.getChildren().add(nbCartes);
@@ -157,7 +164,6 @@ public class VueJoueurCourant extends VBox {
         ImageView imageCarteEnJeuView = new ImageView(imageCarteEnJeu);
         imageCarteEnJeuView.setFitWidth(50);
         imageCarteEnJeuView.setFitHeight(50);
-        Label nbCartesEnJeuLabel = new Label(String.valueOf(jeu.joueurCourantProperty().get().cartesEnJeuProperty().size()));
         nbCartesEnJeuLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         nbCartesEnJeu.getChildren().addAll(imageCarteEnJeuView, nbCartesEnJeuLabel);
         autresInfos.getChildren().add(nbCartesEnJeu);
@@ -171,7 +177,6 @@ public class VueJoueurCourant extends VBox {
         ImageView imageJetonsRailsView = new ImageView(imageJetonsRails);
         imageJetonsRailsView.setFitWidth(50);
         imageJetonsRailsView.setFitHeight(50);
-        Label nbJetonsRails = new Label(String.valueOf(jeu.joueurCourantProperty().get().nbJetonsRailsProperty().get()));
         nbJetonsRails.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         jetonsRails.getChildren().addAll(imageJetonsRailsView, nbJetonsRails);
         infosNbJetonsRails.getChildren().add(jetonsRails);
