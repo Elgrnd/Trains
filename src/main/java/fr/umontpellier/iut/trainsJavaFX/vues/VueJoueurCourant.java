@@ -137,7 +137,7 @@ public class VueJoueurCourant extends VBox {
         ImageView imageScoreView = new ImageView(imageScore);
         imageScoreView.setFitWidth(50);
         imageScoreView.setFitHeight(50);
-        Label scoreLabel = new Label(String.valueOf(jeu.joueurCourantProperty().get().getScoreTotal()));
+        Label scoreLabel = new Label(String.valueOf(jeu.joueurCourantProperty().get().scoreProperty().get()));
         scoreLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         score.getChildren().addAll(imageScoreView, scoreLabel);
         autresInfos.getChildren().add(score);

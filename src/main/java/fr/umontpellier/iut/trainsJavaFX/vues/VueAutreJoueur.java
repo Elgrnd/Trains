@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 public class VueAutreJoueur extends HBox {
 
     private IJoueur autreJoueur;
-    //utiliser des StackPane pour l'image et le score
+
     public VueAutreJoueur(IJoueur autreJoueur) {
         this.autreJoueur = autreJoueur;
         creerVueAutreJoueur();
@@ -39,7 +39,7 @@ public class VueAutreJoueur extends HBox {
         imageCarteEnJeuView.setFitWidth(50);
         imageCarteEnJeuView.setFitHeight(50);
 
-        Label scoreLabel = new Label(String.valueOf(autreJoueur.getScoreTotal()));
+        Label scoreLabel = new Label(String.valueOf(autreJoueur.scoreProperty().get()));
         Label jetonsRailsLabel = new Label(String.valueOf(autreJoueur.nbJetonsRailsProperty().get()));
         Label carteEnMainLabel = new Label(String.valueOf(autreJoueur.mainProperty().size()));
         Label carteEnJeuLabel = new Label(String.valueOf(autreJoueur.cartesEnJeuProperty().size()));
