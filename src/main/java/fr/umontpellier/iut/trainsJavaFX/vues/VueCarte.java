@@ -26,6 +26,16 @@ public class VueCarte extends Button {
         imageCarte.setFitHeight(largeur * 1.4);
         setGraphic(imageCarte);
         setStyle("-fx-background-color: transparent");
+        setOnMouseEntered(event -> {
+            imageCarte.setScaleX(1.2);
+            imageCarte.setScaleY(1.2);
+        });
+
+        setOnMouseExited(event -> {
+            imageCarte.setScaleX(1.0);
+            imageCarte.setScaleY(1.0);
+        });
+
     }
 
     public String getNom() {

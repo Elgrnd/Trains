@@ -9,6 +9,7 @@ import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -58,6 +59,7 @@ public class VueJoueurCourant extends VBox {
         carteButtonMap = new HashMap<>();
         getChildren().addAll(Labels, mainEtInfo);
         creerInfosJoueurCourant();
+        mainJoueur.setPadding(new Insets(15));
     }
 
     public void creerBindings() {
@@ -71,6 +73,7 @@ public class VueJoueurCourant extends VBox {
                 carteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
                     nouveauJoueur.uneCarteDeLaMainAEteChoisie(carteButton.getNom());
                 });
+
             }
 
             nomJoueur.setText(nouveauJoueur.getNom());
