@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
@@ -127,6 +129,11 @@ public class VueDuJeu extends BorderPane {
         joueurCourant.creerBindings();
         passer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> getJeu().passerAEteChoisi());
         passer.setOnMousePressed(actionPasserParDefaut);
+        getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {  //Passer avec barre d'espace
+            if (event.getCode() == KeyCode.SPACE) {
+                getJeu().passerAEteChoisi();
+            }
+        });
 
         boutonReserve.setOnAction((ouvrirNouvFenetreHandler) -> {
             Stage nouvFenetre = new Stage();
