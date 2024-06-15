@@ -1,14 +1,11 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import fr.umontpellier.iut.trainsJavaFX.ICarte;
-import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 /**
  * Cette classe représente la vue d'une carte.
@@ -18,14 +15,15 @@ import javafx.scene.layout.StackPane;
 public class VueCarte extends Button {
 
     private final ICarte carte;
+    private final ImageView imageCarte;
 
     public VueCarte(ICarte carte) {
         this.carte = carte;
         Image image = new Image("images/cartes/" + nomCarteToNomImage());
-        ImageView imageCarte = new ImageView(image);
+        imageCarte = new ImageView(image); // Store reference to ImageView
         int largeur = 120;
         imageCarte.setFitWidth(largeur);
-        imageCarte.setFitHeight(largeur*1.4);
+        imageCarte.setFitHeight(largeur * 1.4);
         setGraphic(imageCarte);
         setStyle("-fx-background-color: transparent");
     }
@@ -53,6 +51,11 @@ public class VueCarte extends Button {
 
     public void setCarteChoisieListener(EventHandler<MouseEvent> quandCarteEstChoisie) {
         setOnMouseClicked(quandCarteEstChoisie);
+    }
+
+    // Method to get the ImageView
+    public ImageView getImageView() {
+        return imageCarte;
     }
 
 }

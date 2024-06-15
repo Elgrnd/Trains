@@ -358,10 +358,14 @@ public class Jeu implements IJeu {
     @Override
     public ListeDeCartes getReserve() {
         ListeDeCartes cartesDeHautDePile = new ListeDeCartes();
-        for (ListeDeCartes l: reserve.values())
-            cartesDeHautDePile.add(l.get(0));
+        for (ListeDeCartes l : reserve.values()) {
+            if (!l.isEmpty()) {
+                cartesDeHautDePile.add(l.get(0));
+            }
+        }
         return cartesDeHautDePile;
     }
+
 
     /**
      * Gestionnaires des demandes du joueur
