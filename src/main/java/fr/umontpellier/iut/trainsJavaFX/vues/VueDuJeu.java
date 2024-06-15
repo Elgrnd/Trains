@@ -153,12 +153,12 @@ public class VueDuJeu extends BorderPane {
             topLabelReserve.setTextAlignment(TextAlignment.CENTER);
             topLabelReserve.setStyle("-fx-font-size: 20");
 
-            Button bottomButtonQuitReserve = new Button("Quitter");
+            Button bottomButtonQuitReserve = new Button();
             Image image = new Image("images/boutons/passer.png");
             ImageView imagePasser = new ImageView(image);
             imagePasser.setFitWidth(75);
             imagePasser.setFitHeight(75);
-            bottomButtonQuitReserve.setStyle("-fx-font-size: 15");
+            bottomButtonQuitReserve.setStyle("-fx-background-color: transparent");
             bottomButtonQuitReserve.setGraphic(imagePasser);
             passer.setStyle("-fx-background-color: transparent");
             HBox bottomHboxReserve = new HBox(bottomButtonQuitReserve);
