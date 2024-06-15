@@ -63,6 +63,7 @@ public class Jeu implements IJeu {
 
     private final Plateau plateau;
 
+
     /**
      * Constructeur de la classe Jeu
      *

@@ -16,6 +16,7 @@ public interface IJoueur {
     IntegerProperty nbJetonsRailsProperty();
     IntegerProperty pointsRailsProperty();
     IntegerProperty scoreProperty();
+    int getArgent();
 
     String getNom();
     CouleurJoueur getCouleur();

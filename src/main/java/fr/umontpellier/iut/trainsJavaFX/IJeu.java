@@ -15,6 +15,7 @@ public interface IJeu {
     BooleanProperty finDePartieProperty();
     ObjectProperty<String> instructionProperty();
     ObjectProperty<IJoueur> joueurCourantProperty();
+    IJoueur getJoueurCourant();
     Map<String, IntegerProperty> getTaillesPilesReserveProperties();
     List<? extends IJoueur> getJoueurs();
     List<Tuile> getTuiles();

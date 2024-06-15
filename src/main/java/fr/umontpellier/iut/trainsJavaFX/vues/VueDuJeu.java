@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
+import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.*;
+
+import static javafx.beans.binding.Bindings.when;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -178,19 +181,24 @@ public class VueDuJeu extends BorderPane {
                         imageView.setFitWidth(imageView.getFitWidth() / 1.4);
                         imageView.setFitHeight(imageView.getFitHeight() / 1.4);
                     });
-
                     vueCarte.setCarteChoisieListener(event -> {
                         int qttCourante = quantitesCartesReserves.get(carte.getNom());
-                        if (qttCourante > 0) {
+                        int argentJoueur = jeu.getJoueurCourant().getArgent();
+
+                        if (qttCourante > 0 && argentJoueur >= carte.getCout()) {
                             getJeu().uneCarteDeLaReserveEstAchetee(vueCarte.getNom());
                             quantitesCartesReserves.put(carte.getNom(), qttCourante - 1);
-                            Label labelQtt = (Label) ((VBox) vueCarte.getParent()).getChildren().get(1);    // Rafraichir le Label pour avoir la bonne quantité
+                            Label labelQtt = (Label) ((VBox) vueCarte.getParent()).getChildren().get(1); // Update availability label
                             labelQtt.setText("Disponible: " + (qttCourante - 1));
+
                             if (qttCourante - 1 == 0) {
                                 vueCarte.setDisable(true);
                             }
+                        } else {
+                            System.out.println("Pas assez d'argent");
                         }
                     });
+
                     Label labelQtt = new Label("Disponible: " + (quantitesCartesReserves.get(carte.getNom())));
                     labelQtt.setAlignment(Pos.CENTER);
                     labelQtt.setStyle("-fx-font-size: 12");
