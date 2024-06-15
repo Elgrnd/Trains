@@ -84,6 +84,9 @@ public class VueChoixJoueurs extends Stage {
                 textField.textProperty().addListener((observable1, oldValue1, newValue1) -> {
                     nomsJoueurs.set(j, newValue1);
                 });
+                BooleanProperty nomJoueurValide = new SimpleBooleanProperty(false);
+                nomJoueurValide.bind(textField.textProperty().isNotEmpty());
+                buttonDemarrerPartie.disableProperty().bind(nomJoueurValide.not());
             }
             choixJoueurs.getChildren().add(buttonDemarrerPartie);
             getScene().getWindow().sizeToScene();
@@ -103,6 +106,7 @@ public class VueChoixJoueurs extends Stage {
             setListeDesNomsDeJoueurs();
             if (!nomsJoueurs.isEmpty())
                 quandLesNomsDesJoueursSontDefinis.onChanged(null);
+                close();
         });
     }
 
