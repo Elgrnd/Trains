@@ -46,6 +46,7 @@ public class VueChoixJoueurs extends Stage {
         labelNbJoueurs = new Label("Choisissez le nombre de joueurs :");
         choixJoueurs = new VBox();
         choixJoueurs.setSpacing(10);
+        choixJoueurs.setAlignment(Pos.CENTER);
         menu.getChildren().addAll(labelPlateau, comboBoxPlateau, labelNbJoueurs, comboBoxNbJoueurs, choixJoueurs);
         menu.setAlignment(Pos.CENTER);
         menu.setSpacing(20);
