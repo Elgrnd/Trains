@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,6 +27,7 @@ public class VueResultats extends BorderPane {
 
     public VueResultats(TrainsIHM ihm) {
         this.ihm = ihm;
+        setStyle("-fx-font-size: 20");
         resultats = new HBox();
         classement = new VBox();
         joueurs = new VBox();
@@ -50,16 +52,28 @@ public class VueResultats extends BorderPane {
         classement.getChildren().clear();
         joueurs.getChildren().clear();
         scores.getChildren().clear();
-        classement.getChildren().add(new Label("Classement"));
-        joueurs.getChildren().add(new Label("Joueurs"));
-        scores.getChildren().add(new Label("Scores"));
+        Label classementLabel = new Label("Classement");
+        classementLabel.setStyle("-fx-font-size: 30; -fx-font-weight: bold");
+        classement.getChildren().add(classementLabel);
+        Label joueursLabel = new Label("Joueurs");
+        joueursLabel.setStyle("-fx-font-size: 30; -fx-font-weight: bold");
+        joueurs.getChildren().add(joueursLabel);
+        Label scoresLabel = new Label("Scores");
+        scoresLabel.setStyle("-fx-font-size: 30; -fx-font-weight: bold");
+        scores.getChildren().add(scoresLabel);
         ihm.getJeu().getJoueurs().stream().sorted((j1, j2) -> j2.getScoreTotal() - j1.getScoreTotal()).forEach(joueur -> {
             classement.getChildren().add(new Pane());
             joueurs.getChildren().add(new Pane());
             scores.getChildren().add(new Pane());
-            classement.getChildren().add(new Label(String.valueOf(i.get())));
-            joueurs.getChildren().add(new Label(joueur.getNom()));
-            scores.getChildren().add(new Label(String.valueOf(joueur.getScoreTotal())));
+            Label labelClassement = new Label(String.valueOf(i.get()));
+            Label labelJoueur = new Label(joueur.getNom());
+            Label labelScore = new Label(String.valueOf(joueur.getScoreTotal()));
+            labelClassement.setTextFill(Paint.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(joueur.getCouleur())));
+            labelJoueur.setTextFill(Paint.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(joueur.getCouleur())));
+            labelScore.setTextFill(Paint.valueOf(CouleursJoueurs.couleursBackgroundJoueur.get(joueur.getCouleur())));
+            classement.getChildren().add(labelClassement);
+            joueurs.getChildren().add(labelJoueur);
+            scores.getChildren().add(labelScore);
             i.getAndIncrement();
         });
     }
