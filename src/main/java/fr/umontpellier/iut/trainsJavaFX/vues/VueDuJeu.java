@@ -3,6 +3,7 @@ package fr.umontpellier.iut.trainsJavaFX.vues;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJoueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
+import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +56,8 @@ public class VueDuJeu extends BorderPane {
     private Button boutonReserve;
     @FXML
     private Button passer;
+    @FXML
+    private Label labelCartesEnJeu, labelCartesRecues;
 
     private Map<String, Integer> quantitesCartesReserves = new HashMap<>();
 
@@ -81,6 +84,8 @@ public class VueDuJeu extends BorderPane {
         imagePasser.setFitHeight(75);
         passer.setGraphic(imagePasser);
         passer.setStyle("-fx-background-color: transparent");
+        labelCartesEnJeu.setStyle("-fx-font-size: 13");
+        labelCartesRecues.setStyle("-fx-font-size: 13");
         quantitesCartesReserves.put("Aiguillage", 10);
         quantitesCartesReserves.put("Appartement", 10);
         quantitesCartesReserves.put("Atelier de maintenance", 10);
@@ -134,7 +139,6 @@ public class VueDuJeu extends BorderPane {
                 getJeu().passerAEteChoisi();
             }
         });
-
         boutonReserve.setOnAction((ouvrirNouvFenetreHandler) -> {
             Stage nouvFenetre = new Stage();
             nouvFenetre.setTitle("Réserve");
@@ -175,7 +179,7 @@ public class VueDuJeu extends BorderPane {
 
             int ligne = 0;
             int colonne = 0;
-            if(!jeu.getReserve().isEmpty() && jeu.getReserve() != null) {
+            if (!jeu.getReserve().isEmpty() && jeu.getReserve() != null) {
                 for (Carte carte : jeu.getReserve()) {
                     VueCarte vueCarte = new VueCarte(carte);
                     vueCarte.setOnMouseEntered(event -> {
@@ -226,8 +230,33 @@ public class VueDuJeu extends BorderPane {
             nouvFenetre.showAndWait();  // Empêcher intéraction avec fenêtre principale tant que fenêtre réserve n'est pas fermée
         });
 
+        jeu.joueurCourantProperty().addListener(((observableValue, ancienJoueur, nouveauJoueur) -> {
+            hboxCartesJouees.getChildren().clear();
+            for (Carte carte : nouveauJoueur.cartesEnJeuProperty()) {
+                VueCarte vueCarte = new VueCarte(carte);
+                hboxCartesJouees.getChildren().add(vueCarte);
+            }
+            ancienJoueur.cartesEnJeuProperty().removeListener(changementCartesEnJeuListener);
+            nouveauJoueur.cartesEnJeuProperty().addListener(changementCartesEnJeuListener);
+        }));
+
         autresJoueursInfo.createBindings();
     }
+    private final ListChangeListener<Carte> changementCartesEnJeuListener = (change) -> {
+        while (change.next()) {
+            if (change.wasRemoved()) {
+                for (Carte carteEnlevee : change.getRemoved()) {
+                    hboxCartesJouees.getChildren().removeIf(node -> ((VueCarte) node).getCarte().equals(carteEnlevee));
+                }
+            }
+            if (change.wasAdded()) {
+                for (Carte carteAjoutee : change.getAddedSubList()) {
+                    VueCarte vueCarte = new VueCarte(carteAjoutee);
+                    hboxCartesJouees.getChildren().add(vueCarte);
+                }
+            }
+        }
+    };
 
 
     public IJeu getJeu() {

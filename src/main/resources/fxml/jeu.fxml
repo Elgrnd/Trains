@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <VBox fx:id="vboxJoueurCourant" prefHeight="112.0" prefWidth="600.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
    </bottom>
    <right>
       <VBox fx:id="vboxCartes" alignment="CENTER" focusTraversable="true" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
+            <Label fx:id="labelCartesEnJeu" alignment="CENTER" text="Cartes en jeu" />
             <HBox fx:id="hboxCartesJouees" prefHeight="100.0" prefWidth="200.0" />
             <Separator focusTraversable="false" prefWidth="200.0" />
+            <Label fx:id="labelCartesRecues" alignment="CENTER" text="Cartes recues" />
             <HBox fx:id="hboxCartesRecues" prefHeight="100.0" prefWidth="200.0" />
             <Separator focusTraversable="false" prefWidth="200.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

@@ -63,6 +63,10 @@ public class VueCarte extends Button {
         setOnMouseClicked(quandCarteEstChoisie);
     }
 
+    public ICarte getCarte() {
+        return carte;
+    }
+
     // Method to get the ImageView
     public ImageView getImageView() {
         return imageCarte;
