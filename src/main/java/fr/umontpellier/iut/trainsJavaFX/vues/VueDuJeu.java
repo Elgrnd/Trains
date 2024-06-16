@@ -236,8 +236,22 @@ public class VueDuJeu extends BorderPane {
                 VueCarte vueCarte = new VueCarte(carte);
                 hboxCartesJouees.getChildren().add(vueCarte);
             }
+        }));
+        jeu.joueurCourantProperty().addListener(((observableValue, ancienJoueur, nouveauJoueur) -> {
+            hboxCartesJouees.getChildren().clear();
+            for (Carte carte : nouveauJoueur.cartesEnJeuProperty()) {
+                VueCarte vueCarte = new VueCarte(carte);
+                hboxCartesJouees.getChildren().add(vueCarte);
+            }
+            hboxCartesRecues.getChildren().clear();
+            for (Carte carte : nouveauJoueur.cartesRecuesProperty()) {
+                VueCarte vueCarte = new VueCarte(carte);
+                hboxCartesRecues.getChildren().add(vueCarte);
+            }
             ancienJoueur.cartesEnJeuProperty().removeListener(changementCartesEnJeuListener);
             nouveauJoueur.cartesEnJeuProperty().addListener(changementCartesEnJeuListener);
+            ancienJoueur.cartesRecuesProperty().removeListener(changementCartesRecuesListener);
+            nouveauJoueur.cartesRecuesProperty().addListener(changementCartesRecuesListener);
         }));
 
         autresJoueursInfo.createBindings();
@@ -253,6 +267,21 @@ public class VueDuJeu extends BorderPane {
                 for (Carte carteAjoutee : change.getAddedSubList()) {
                     VueCarte vueCarte = new VueCarte(carteAjoutee);
                     hboxCartesJouees.getChildren().add(vueCarte);
+                }
+            }
+        }
+    };
+    private final ListChangeListener<Carte> changementCartesRecuesListener = (change) -> {
+        while (change.next()) {
+            if (change.wasRemoved()) {
+                for (Carte carteEnlevee : change.getRemoved()) {
+                    hboxCartesRecues.getChildren().removeIf(node -> ((VueCarte) node).getCarte().equals(carteEnlevee));
+                }
+            }
+            if (change.wasAdded()) {
+                for (Carte carteAjoutee : change.getAddedSubList()) {
+                    VueCarte vueCarte = new VueCarte(carteAjoutee);
+                    hboxCartesRecues.getChildren().add(vueCarte);
                 }
             }
         }
