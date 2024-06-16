@@ -199,7 +199,7 @@ public class VueDuJeu extends BorderPane {
                         if (qttCourante > 0 && argentJoueur >= carte.getCout()) {
                             getJeu().uneCarteDeLaReserveEstAchetee(vueCarte.getNom());
                             quantitesCartesReserves.put(carte.getNom(), qttCourante - 1);
-                            Label labelQtt = (Label) ((VBox) vueCarte.getParent()).getChildren().get(1); // Update availability label
+                            Label labelQtt = (Label) ((VBox) vueCarte.getParent()).getChildren().get(1);
                             labelQtt.setText("Disponible: " + (qttCourante - 1));
 
                             if (qttCourante - 1 == 0) {
