@@ -159,9 +159,10 @@ public class VueDuJeu extends BorderPane {
             nouvFenetre.initOwner(getScene().getWindow());   // définir propriétaire de la nouvelle fenêtre
 
             BorderPane layoutReserve = new BorderPane();
-            Scene sceneReserve = new Scene(layoutReserve, 1150, 680);
+            Scene sceneReserve = new Scene(layoutReserve, 1250, 680);
 
             GridPane gridPaneCartesReserves = new GridPane();
+            gridPaneCartesReserves.setAlignment(Pos.CENTER);
 
             Label topLabelReserve = new Label("Bienvenue dans la réserve ! \nVeuillez acheter une carte ou quitter.");
             HBox topHboxReserve = new HBox(topLabelReserve);
@@ -180,7 +181,7 @@ public class VueDuJeu extends BorderPane {
             passer.setStyle("-fx-background-color: transparent");
             HBox bottomHboxReserve = new HBox(bottomButtonQuitReserve);
             bottomHboxReserve.setAlignment(Pos.CENTER);
-            bottomHboxReserve.setPadding(new Insets(50));
+            bottomHboxReserve.setPadding(new Insets(30));
 
             EventHandler<MouseEvent> clicQuitter = event -> nouvFenetre.close();
             bottomButtonQuitReserve.addEventHandler(MouseEvent.MOUSE_CLICKED, clicQuitter);
