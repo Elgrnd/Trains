@@ -58,6 +58,8 @@ public class VueDuJeu extends BorderPane {
     private Button passer;
     @FXML
     private Label labelCartesEnJeu, labelCartesRecues;
+    @FXML
+    private ImageView imageReserve;
 
     private Map<String, Integer> quantitesCartesReserves = new HashMap<>();
 
@@ -72,6 +74,7 @@ public class VueDuJeu extends BorderPane {
             e.printStackTrace();
         }
         this.jeu = jeu;
+        vboxReserve = new VBox();
         plateau = new VuePlateau();
         joueurCourant = new VueJoueurCourant(jeu);
         autresJoueursInfo = new VueAutresJoueurs(jeu);
@@ -80,12 +83,20 @@ public class VueDuJeu extends BorderPane {
         hboxAutresJoueurs.getChildren().add(autresJoueursInfo);
         hboxCartesJouees.setPadding(new Insets(14));
         hboxCartesRecues.setPadding(new Insets(14));
+
+        Image imgReserve = new Image("images/boutons/deck.png");
+        imageReserve.setImage(imgReserve);
+        imageReserve.setVisible(true);
+        imageReserve.setFitWidth(75);
+        imageReserve.setFitHeight(75);
+
         Image image = new Image("images/boutons/passer.png");
         ImageView imagePasser = new ImageView(image);
         imagePasser.setFitWidth(75);
         imagePasser.setFitHeight(75);
         passer.setGraphic(imagePasser);
         passer.setStyle("-fx-background-color: transparent");
+
         labelCartesEnJeu.setStyle("-fx-font-size: 13");
         labelCartesRecues.setStyle("-fx-font-size: 13");
         quantitesCartesReserves.put("Aiguillage", 10);
