@@ -255,11 +255,6 @@ public class VueDuJeu extends BorderPane {
             }
         }));
         jeu.joueurCourantProperty().addListener(((observableValue, ancienJoueur, nouveauJoueur) -> {
-            hboxCartesJouees.getChildren().clear();
-            for (Carte carte : nouveauJoueur.cartesEnJeuProperty()) {
-                VueCarte vueCarte = new VueCarte(carte);
-                hboxCartesJouees.getChildren().add(vueCarte);
-            }
             hboxCartesRecues.getChildren().clear();
             for (Carte carte : nouveauJoueur.cartesRecuesProperty()) {
                 VueCarte vueCarte = new VueCarte(carte);
