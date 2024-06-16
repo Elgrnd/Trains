@@ -1,36 +1,48 @@
 package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import fr.umontpellier.iut.trainsJavaFX.TrainsIHM;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class VueResultats extends HBox {
+public class VueResultats extends BorderPane {
 
     private TrainsIHM ihm;
-    VBox classement;
-    VBox joueurs;
-    VBox scores;
+    private HBox resultats;
+    private VBox classement;
+    private VBox joueurs;
+    private VBox scores;
+    private Button rejouer;
 
 
     public VueResultats(TrainsIHM ihm) {
         this.ihm = ihm;
+        resultats = new HBox();
         classement = new VBox();
         joueurs = new VBox();
         scores = new VBox();
+        rejouer = new Button("Rejouer");
+        setCenter(resultats);
+        setBottom(rejouer);
+        BorderPane.setMargin(rejouer, new Insets(10));
+        BorderPane.setAlignment(rejouer, Pos.CENTER);
         classement.setAlignment(Pos.TOP_CENTER);
         joueurs.setAlignment(Pos.TOP_CENTER);
         scores.setAlignment(Pos.TOP_CENTER);
-        this.getChildren().addAll(classement, new Separator(Orientation.VERTICAL), joueurs, new Separator(Orientation.VERTICAL), scores);
+        resultats.getChildren().addAll(classement, new Separator(Orientation.VERTICAL), joueurs, new Separator(Orientation.VERTICAL), scores);
         afficherResultats();
-        setAlignment(Pos.CENTER);
-        setSpacing(10);
+        resultats.setAlignment(Pos.CENTER);
+        resultats.setSpacing(10);
+        rejouer.setOnAction(event -> rejouer());
     }
 
     public void afficherResultats() {
@@ -50,6 +62,12 @@ public class VueResultats extends HBox {
             scores.getChildren().add(new Label(String.valueOf(joueur.getScoreTotal())));
             i.getAndIncrement();
         });
+    }
+
+    public void rejouer() {
+        ihm.getPrimaryStage().close();
+        TrainsIHM newIHM = new TrainsIHM();
+        newIHM.start(ihm.getPrimaryStage());
     }
 
 }
