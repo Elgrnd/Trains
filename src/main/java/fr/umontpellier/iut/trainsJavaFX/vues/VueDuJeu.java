@@ -119,7 +119,7 @@ public class VueDuJeu extends BorderPane {
         quantitesCartesReserves.put("Horaires estivaux", 10);
         quantitesCartesReserves.put("Horaires temporaires", 10);
         quantitesCartesReserves.put("Immeuble", 10);
-        quantitesCartesReserves.put("Parc d’attractions", 10);
+        quantitesCartesReserves.put("Parc d'attractions", 10);
         quantitesCartesReserves.put("Passage en gare", 10);
         quantitesCartesReserves.put("Personnel de gare", 10);
         quantitesCartesReserves.put("Pont en acier", 10);
