@@ -9,9 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <bottom>
-      <VBox fx:id="vboxJoueurCourant" prefHeight="112.0" prefWidth="600.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER" />
-   </bottom>
    <right>
       <VBox fx:id="vboxCartes" alignment="CENTER" focusTraversable="true" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
@@ -43,4 +40,7 @@
          </children>
       </VBox>
    </left>
+   <bottom>
+      <VBox fx:id="vboxJoueurCourant" prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </fx:root>

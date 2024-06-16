@@ -21,7 +21,7 @@ public class VueCarte extends Button {
         this.carte = carte;
         Image image = new Image("images/cartes/" + nomCarteToNomImage());
         imageCarte = new ImageView(image); // Store reference to ImageView
-        int largeur = 120;
+        int largeur = 115;
         imageCarte.setFitWidth(largeur);
         imageCarte.setFitHeight(largeur * 1.4);
         setGraphic(imageCarte);

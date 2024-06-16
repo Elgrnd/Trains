@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -212,12 +213,14 @@ public class VueDuJeu extends BorderPane {
 
                         if (qttCourante > 0 && argentJoueur >= carte.getCout()) {
                             getJeu().uneCarteDeLaReserveEstAchetee(vueCarte.getNom());
-                            quantitesCartesReserves.put(carte.getNom(), qttCourante - 1);
-                            Label labelQtt = (Label) ((VBox) vueCarte.getParent()).getChildren().get(1);
-                            labelQtt.setText("Disponible: " + (qttCourante - 1));
+                            if(!carte.getNom().equals("Ferraille")) {
+                                quantitesCartesReserves.put(carte.getNom(), qttCourante - 1);
+                                Label labelQtt = (Label) ((VBox) vueCarte.getParent()).getChildren().get(1);
+                                labelQtt.setText("Disponible: " + (qttCourante - 1));
 
-                            if (qttCourante - 1 == 0) {
-                                vueCarte.setDisable(true);
+                                if (qttCourante - 1 == 0) {
+                                    vueCarte.setDisable(true);
+                                }
                             }
                         } else {
                             System.out.println("Pas assez d'argent");
