@@ -59,6 +59,7 @@ public class VueDuJeu extends BorderPane {
     private ImageView imageReserve;
 
     private Map<String, Integer> quantitesCartesReserves = new HashMap<>();
+    private Stage reserveStage;  // Added reference to the Reserve window stage
 
 
     public VueDuJeu(IJeu jeu) {
@@ -150,10 +151,10 @@ public class VueDuJeu extends BorderPane {
             }
         });
         boutonReserve.setOnAction((ouvrirNouvFenetreHandler) -> {
-            Stage nouvFenetre = new Stage();
-            nouvFenetre.setTitle("Réserve");
-            nouvFenetre.initModality(Modality.WINDOW_MODAL); // Définir modalité : Empecher interaction avec fenêtre principale
-            nouvFenetre.initOwner(getScene().getWindow());   // définir propriétaire de la nouvelle fenêtre
+            reserveStage = new Stage();
+            reserveStage.setTitle("Réserve");
+            reserveStage.initModality(Modality.WINDOW_MODAL); // Définir modalité : Empecher interaction avec fenêtre principale
+            reserveStage.initOwner(getScene().getWindow());   // définir propriétaire de la nouvelle fenêtre
 
             BorderPane layoutReserve = new BorderPane();
             Scene sceneReserve = new Scene(layoutReserve, 1250, 680);
@@ -180,10 +181,10 @@ public class VueDuJeu extends BorderPane {
             bottomHboxReserve.setAlignment(Pos.CENTER);
             bottomHboxReserve.setPadding(new Insets(30));
 
-            EventHandler<MouseEvent> clicQuitter = event -> nouvFenetre.close();
+            EventHandler<MouseEvent> clicQuitter = event -> reserveStage.close();
             bottomButtonQuitReserve.addEventHandler(MouseEvent.MOUSE_CLICKED, clicQuitter);
 
-            nouvFenetre.setScene(sceneReserve);
+            reserveStage.setScene(sceneReserve);
             layoutReserve.setCenter(gridPaneCartesReserves);
             layoutReserve.setTop(topHboxReserve);
             layoutReserve.setBottom(bottomHboxReserve);
@@ -238,9 +239,9 @@ public class VueDuJeu extends BorderPane {
                     }
                 }
             }
-            nouvFenetre.setX(350);
-            nouvFenetre.setY(200);
-            nouvFenetre.showAndWait();  // Empêcher intéraction avec fenêtre principale tant que fenêtre réserve n'est pas fermée
+            reserveStage.setX(350);
+            reserveStage.setY(200);
+            reserveStage.showAndWait();  // Empêcher intéraction avec fenêtre principale tant que fenêtre réserve n'est pas fermée
         });
 
         jeu.joueurCourantProperty().addListener(((observableValue, ancienJoueur, nouveauJoueur) -> {
@@ -248,6 +249,9 @@ public class VueDuJeu extends BorderPane {
             for (Carte carte : nouveauJoueur.cartesEnJeuProperty()) {
                 VueCarte vueCarte = new VueCarte(carte);
                 hboxCartesJouees.getChildren().add(vueCarte);
+            }
+            if (reserveStage != null && reserveStage.isShowing()) {  //Fenetre Reserve se ferme quand le joueur courant change
+                reserveStage.close();
             }
         }));
         jeu.joueurCourantProperty().addListener(((observableValue, ancienJoueur, nouveauJoueur) -> {
