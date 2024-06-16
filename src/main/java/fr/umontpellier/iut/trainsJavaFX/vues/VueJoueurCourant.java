@@ -2,14 +2,12 @@ package fr.umontpellier.iut.trainsJavaFX.vues;
 
 import fr.umontpellier.iut.trainsJavaFX.GestionJeu;
 import fr.umontpellier.iut.trainsJavaFX.IJeu;
-import fr.umontpellier.iut.trainsJavaFX.mecanique.Joueur;
 import fr.umontpellier.iut.trainsJavaFX.mecanique.cartes.Carte;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -17,8 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,9 +26,8 @@ import java.util.Map;
 public class VueJoueurCourant extends VBox {
     private Label nomJoueur, instruction, nbPieces, nbRails, scoreLabel, nbCartesLabel, nbCartesEnJeuLabel, nbJetonsRails;
     private HBox mainJoueur, Labels;
-    private HBox infoJoueur;
+    private HBox infoJoueur, hboxNames;
     private Map<Carte, VueCarte> carteButtonMap;
-
 
     private IJeu jeu;
 
@@ -47,6 +42,7 @@ public class VueJoueurCourant extends VBox {
         nbCartesEnJeuLabel = new Label();
         nbJetonsRails = new Label();
         HBox mainEtInfo = new HBox();
+        hboxNames = new HBox();
         mainJoueur = new HBox();
         infoJoueur = new HBox();
         infoJoueur.setSpacing(30);
@@ -59,7 +55,7 @@ public class VueJoueurCourant extends VBox {
         carteButtonMap = new HashMap<>();
         getChildren().addAll(Labels, mainEtInfo);
         creerInfosJoueurCourant();
-        mainJoueur.setPadding(new Insets(15));
+        mainJoueur.setPadding(new Insets(18));
     }
 
     public void creerBindings() {
@@ -110,10 +106,14 @@ public class VueJoueurCourant extends VBox {
             nbRails.textProperty().bind(nouveauJoueur.pointsRailsProperty().asString());
         }));
         instruction.textProperty().bind(GestionJeu.getJeu().instructionProperty());
+
     }
 
     public void creerInfosJoueurCourant() {
         VBox infosEnJeu = new VBox();
+        VBox autresInfos = new VBox();
+        VBox infosNbJetonsRails = new VBox();
+        autresInfos.getChildren().add(new Label(" "));
         infosEnJeu.setSpacing(10);
         infoJoueur.getChildren().add(infosEnJeu);
 
@@ -130,6 +130,17 @@ public class VueJoueurCourant extends VBox {
         pieces.getChildren().addAll(imagePieceView, nbPieces);
         infosEnJeu.getChildren().add(pieces);
 
+        Label labelPieces = new Label("Argent");
+        labelPieces.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        labelPieces.setVisible(false);
+        infosEnJeu.getChildren().add(labelPieces);
+        pieces.setOnMouseEntered(event -> labelPieces.setVisible(true));
+        pieces.setOnMouseMoved(event -> {
+            labelPieces.setLayoutX(event.getSceneX());
+            labelPieces.setLayoutY(event.getSceneY());
+        });
+        pieces.setOnMouseExited(event -> labelPieces.setVisible(false));
+
         StackPane rails = new StackPane();
         Image imageRail = new Image("images/boutons/rail.png");
         ImageView imageRailView = new ImageView(imageRail);
@@ -139,7 +150,17 @@ public class VueJoueurCourant extends VBox {
         rails.getChildren().addAll(imageRailView, nbRails);
         infosEnJeu.getChildren().add(rails);
 
-        VBox autresInfos = new VBox();
+        Label labelRails = new Label("Jetons Rails");
+        labelRails.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        labelRails.setVisible(false);
+        infosEnJeu.getChildren().add(labelRails);
+        rails.setOnMouseEntered(event -> labelRails.setVisible(true));
+        rails.setOnMouseMoved(event -> {
+            labelRails.setLayoutX(event.getSceneX() + 10);
+            labelRails.setLayoutY(event.getSceneY() + 10);
+        });
+        rails.setOnMouseExited(event -> labelRails.setVisible(false));
+
         autresInfos.setSpacing(10);
         infoJoueur.getChildren().add(autresInfos);
 
@@ -150,7 +171,18 @@ public class VueJoueurCourant extends VBox {
         imageScoreView.setFitHeight(50);
         scoreLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         score.getChildren().addAll(imageScoreView, scoreLabel);
-        autresInfos.getChildren().add(score);
+        infosNbJetonsRails.getChildren().add(score);
+
+        Label labelScore = new Label("Points Victoire");
+        labelScore.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        labelScore.setVisible(false);
+        infosNbJetonsRails.getChildren().add(labelScore);
+        score.setOnMouseEntered(event -> labelScore.setVisible(true));
+        score.setOnMouseMoved(event -> {
+            labelScore.setLayoutX(event.getSceneX() );
+            labelScore.setLayoutY(event.getSceneY() );
+        });
+        score.setOnMouseExited(event -> labelScore.setVisible(false));
 
         StackPane nbCartes = new StackPane();
         Image imageCarte = new Image("images/boutons/deck.png");
@@ -161,6 +193,17 @@ public class VueJoueurCourant extends VBox {
         nbCartes.getChildren().addAll(imageCarteView, nbCartesLabel);
         autresInfos.getChildren().add(nbCartes);
 
+        Label labelCartesEnMain = new Label("Cartes en main");
+        labelCartesEnMain.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        labelCartesEnMain.setVisible(false);
+        autresInfos.getChildren().add(labelCartesEnMain);
+        nbCartes.setOnMouseEntered(event -> labelCartesEnMain.setVisible(true));
+        nbCartes.setOnMouseMoved(event -> {
+            labelCartesEnMain.setLayoutX(event.getSceneX() );
+            labelCartesEnMain.setLayoutY(event.getSceneY() );
+        });
+        nbCartes.setOnMouseExited(event -> labelCartesEnMain.setVisible(false));
+
         StackPane nbCartesEnJeu = new StackPane();
         Image imageCarteEnJeu = new Image("images/boutons/defausse.png");
         ImageView imageCarteEnJeuView = new ImageView(imageCarteEnJeu);
@@ -170,7 +213,17 @@ public class VueJoueurCourant extends VBox {
         nbCartesEnJeu.getChildren().addAll(imageCarteEnJeuView, nbCartesEnJeuLabel);
         autresInfos.getChildren().add(nbCartesEnJeu);
 
-        VBox infosNbJetonsRails = new VBox();
+        Label labelCartesEnJeu = new Label("Cartes jouées");
+        labelCartesEnJeu.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        labelCartesEnJeu.setVisible(false);
+        autresInfos.getChildren().add(labelCartesEnJeu);
+        nbCartesEnJeu.setOnMouseEntered(event -> labelCartesEnJeu.setVisible(true));
+        nbCartesEnJeu.setOnMouseMoved(event -> {
+            labelCartesEnJeu.setLayoutX(event.getSceneX() );
+            labelCartesEnJeu.setLayoutY(event.getSceneY() );
+        });
+        nbCartesEnJeu.setOnMouseExited(event -> labelCartesEnJeu.setVisible(false));
+
         infosNbJetonsRails.setSpacing(10);
         infosNbJetonsRails.setAlignment(Pos.CENTER);
         infoJoueur.getChildren().add(infosNbJetonsRails);
@@ -182,6 +235,17 @@ public class VueJoueurCourant extends VBox {
         nbJetonsRails.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #ffc400");
         jetonsRails.getChildren().addAll(imageJetonsRailsView, nbJetonsRails);
         infosNbJetonsRails.getChildren().add(jetonsRails);
+
+        Label labelJetonsRails = new Label("Jetons rails");
+        labelJetonsRails.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        labelJetonsRails.setVisible(false);
+        infosNbJetonsRails.getChildren().add(labelJetonsRails);
+        jetonsRails.setOnMouseEntered(event -> labelJetonsRails.setVisible(true));
+        jetonsRails.setOnMouseMoved(event -> {
+            labelJetonsRails.setLayoutX(event.getSceneX() );
+            labelJetonsRails.setLayoutY(event.getSceneY() );
+        });
+        jetonsRails.setOnMouseExited(event -> labelJetonsRails.setVisible(false));
     }
 
     public Button trouverBoutonCarte(Carte carteATrouver) {
