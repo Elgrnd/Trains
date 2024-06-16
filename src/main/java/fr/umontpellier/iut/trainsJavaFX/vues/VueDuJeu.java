@@ -78,6 +78,8 @@ public class VueDuJeu extends BorderPane {
         panePlateau.getChildren().add(plateau);
         vboxJoueurCourant.getChildren().add(joueurCourant);
         hboxAutresJoueurs.getChildren().add(autresJoueursInfo);
+        hboxCartesJouees.setPadding(new Insets(14));
+        hboxCartesRecues.setPadding(new Insets(14));
         Image image = new Image("images/boutons/passer.png");
         ImageView imagePasser = new ImageView(image);
         imagePasser.setFitWidth(75);
